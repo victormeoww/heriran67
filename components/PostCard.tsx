@@ -8,7 +8,7 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post, featured = false, minimal = false }: PostCardProps) {
-  const { slug, frontmatter, readTime } = post
+  const { slug, frontmatter } = post
   const categoryColors = {
     'Essay': 'text-burgundy',
     'Breaking News': 'text-teal',

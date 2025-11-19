@@ -24,7 +24,7 @@ export default function HomePage() {
               <PersianPattern variant="star" className="w-12 h-12 text-burgundy" />
             </div>
             <h1 className="text-xl md:text-2xl font-display italic text-charcoal/60 max-w-xl mx-auto leading-relaxed">
-              "Voices from the shadows, speaking truth to power."
+              &quot;Voices from the shadows, speaking truth to power.&quot;
             </h1>
           </div>
 

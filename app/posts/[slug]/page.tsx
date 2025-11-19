@@ -44,12 +44,6 @@ export default function PostPage({ params }: PostPageProps) {
   const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
   const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
 
-  const categoryColors = {
-    'Essay': 'text-burgundy',
-    'Breaking News': 'text-teal',
-    'Personal': 'text-saffron',
-  }
-
   return (
     <article className="min-h-screen bg-cream selection:bg-burgundy/10">
       {/* Article Header */}
