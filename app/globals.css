@@ -8,11 +8,18 @@
   }
   
   body {
-    @apply font-serif bg-cream text-charcoal selection:bg-burgundy/20 selection:text-burgundy;
+    @apply font-serif bg-cream text-charcoal antialiased;
+    /* Add subtle noise texture via CSS gradient */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  /* Custom selection color */
+  ::selection {
+    @apply bg-burgundy/15 text-burgundy;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold text-charcoal;
+    @apply font-display font-bold text-charcoal tracking-tight;
   }
 }
 
@@ -21,9 +28,11 @@
     text-wrap: balance;
   }
   
+  /* Refined Fade In Animation */
   .fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 1.0s cubic-bezier(0.22, 1, 0.36, 1) forwards; /* Custom easing */
     opacity: 0;
+    filter: blur(0px);
   }
   
   .delay-100 { animation-delay: 100ms; }
@@ -33,14 +42,17 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(15px);
+      filter: blur(2px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
+      filter: blur(0px);
     }
   }
   
+  /* Elegant Underline */
   .underline-slide {
     position: relative;
     text-decoration: none;
@@ -50,11 +62,11 @@
     content: '';
     position: absolute;
     width: 0;
-    height: 1px; /* Thinner line */
+    height: 1px;
     bottom: -2px;
     left: 0;
-    background-color: currentColor; /* Use current text color */
-    transition: width 0.3s ease;
+    background-color: currentColor;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
   
   .underline-slide:hover::after {
@@ -63,7 +75,7 @@
   
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
@@ -71,38 +83,37 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-charcoal/20 hover:bg-charcoal/40 transition-colors rounded-full;
+    @apply bg-charcoal/20 hover:bg-charcoal/40 transition-colors;
   }
 }
 
-/* Prose styles for markdown content - HIGH END EDITORIAL STYLE */
+/* High-End Editorial Prose Styles */
 .prose {
   @apply text-charcoal max-w-none;
 }
 
 .prose p {
-  @apply text-xl leading-relaxed mb-8 font-serif;
-  /* Optimal line length and height for reading */
+  @apply text-xl leading-[1.8] mb-8 font-serif text-charcoal/90; /* Slightly muted for reading comfort */
 }
 
 .prose h2 {
-  @apply text-3xl md:text-4xl font-display font-bold mt-16 mb-8 tracking-tight text-charcoal;
+  @apply text-3xl md:text-4xl font-display font-bold mt-20 mb-8 tracking-tight text-charcoal leading-tight;
 }
 
 .prose h3 {
-  @apply text-2xl md:text-3xl font-display font-semibold mt-12 mb-6 text-charcoal;
+  @apply text-2xl md:text-3xl font-display font-semibold mt-16 mb-6 text-charcoal leading-tight;
 }
 
 .prose a {
-  @apply text-burgundy underline underline-offset-4 decoration-1 decoration-burgundy/40 hover:decoration-burgundy transition-all;
+  @apply text-burgundy underline underline-offset-4 decoration-1 decoration-burgundy/30 hover:decoration-burgundy transition-all;
 }
 
 .prose blockquote {
-  @apply border-l-2 border-burgundy pl-8 italic my-12 text-2xl text-charcoal font-display bg-transparent;
+  @apply border-l-2 border-gold pl-8 italic my-12 text-2xl text-charcoal font-display bg-transparent leading-relaxed;
 }
 
 .prose ul, .prose ol {
-  @apply my-8 pl-6 space-y-4 marker:text-burgundy;
+  @apply my-8 pl-6 space-y-3 marker:text-burgundy/70;
 }
 
 .prose li {
@@ -114,11 +125,11 @@
 }
 
 .prose code {
-  @apply bg-sand px-1.5 py-0.5 rounded text-base font-mono text-burgundy border border-burgundy/10;
+  @apply bg-sand px-1.5 py-0.5 text-base font-mono text-burgundy border border-charcoal/5;
 }
 
 .prose pre {
-  @apply bg-charcoal text-cream p-8 rounded-none overflow-x-auto my-10 text-sm border-l-4 border-burgundy;
+  @apply bg-charcoal text-cream p-8 overflow-x-auto my-12 text-sm border-l-2 border-gold shadow-2xl;
 }
 
 .prose pre code {
@@ -126,19 +137,19 @@
 }
 
 .prose img {
-  @apply w-full h-auto my-12 block;
+  @apply w-full h-auto my-16 block shadow-sm;
 }
 
 .prose hr {
-  @apply my-16 border-0 h-px bg-charcoal/10;
+  @apply my-20 border-0 h-px bg-charcoal/10;
 }
 
 /* Drop cap - Classical Style */
 .prose > p:first-of-type::first-letter {
-  @apply text-6xl md:text-7xl font-display font-bold float-left mr-3 mt-2 leading-none text-burgundy;
+  @apply text-6xl md:text-7xl font-display font-bold float-left mr-4 mt-2 leading-none text-burgundy;
 }
 
 /* Pull quotes utility */
 .prose .pullquote {
-  @apply text-3xl md:text-4xl font-display italic text-burgundy my-16 text-center leading-tight max-w-3xl mx-auto border-y border-burgundy/10 py-12;
+  @apply text-3xl md:text-4xl font-display italic text-charcoal my-20 text-center leading-tight max-w-3xl mx-auto py-12 border-y border-charcoal/10;
 }

@@ -9,13 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: '#FDFCF8', // Lighter, cleaner
-        charcoal: '#1A1A1A', // Darker for better contrast
-        burgundy: '#8B1538', // Deep red (classic)
-        saffron: '#E6AF2E', // Muted gold
-        teal: '#2E8B8B', // Deep teal
-        'light-gray': '#E8E8E8',
-        sand: '#F5F5F0', // Slightly darker cream for cards/sections
+        cream: '#FAF9F6', // "Off-white" / Paper - softer than pure white
+        charcoal: '#121212', // "Ink Black" - softer than pure black, richer
+        burgundy: '#7C0A02', // "Deep Barn Red" - more serious, less pink
+        gold: '#C5A059', // "Muted Gold" - for accents
+        teal: '#1B4D3E', // "Dark Cyan" - sophisticated pairing
+        sand: '#F0EFE9', // Slightly darker paper for contrast areas
       },
       fontFamily: {
         serif: ['var(--font-crimson)', 'Georgia', 'serif'],
@@ -23,10 +22,18 @@ const config: Config = {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
-        'article': '720px', // Slightly wider for readability
+        'article': '720px',
+      },
+      letterSpacing: {
+        'tighter': '-0.05em',
+        'tight': '-0.025em',
+        'normal': '0',
+        'wide': '0.025em',
+        'wider': '0.05em',
+        'widest': '0.1em',
       },
       animation: {
-        'fade-in': 'fadeIn 0.8s ease-in-out forwards',
+        'fade-in': 'fadeIn 1.0s cubic-bezier(0.22, 1, 0.36, 1) forwards', // Smoother bezier
       },
     },
   },

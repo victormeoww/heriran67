@@ -12,37 +12,38 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   const categoryColors = {
     'Essay': 'text-burgundy',
     'Breaking News': 'text-teal',
-    'Personal': 'text-saffron',
+    'Personal': 'text-gold', // Updated to Gold for better palette
   }
 
   // Featured Post Layout (Hero style)
   if (featured) {
     return (
-      <article className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-b border-charcoal/10 pb-16 mb-16">
+      <article className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-b-2 border-charcoal pb-20 mb-20">
         <div className="md:col-span-12 lg:col-span-10 lg:col-start-2 text-center">
-          <div className="flex items-center justify-center space-x-4 mb-6 text-xs font-sans tracking-[0.2em] uppercase">
-            <span className={categoryColors[frontmatter.category] || 'text-charcoal'}>
+          <div className="flex items-center justify-center space-x-4 mb-8 text-[10px] font-sans font-bold tracking-[0.3em] uppercase">
+            <span className={`${categoryColors[frontmatter.category] || 'text-charcoal'} border border-current px-2 py-1 rounded-sm`}>
               {frontmatter.category}
             </span>
             <span className="text-charcoal/30">|</span>
-            <span className="text-charcoal/60">{formatDate(frontmatter.date)}</span>
+            <span className="text-charcoal/50">{formatDate(frontmatter.date)}</span>
           </div>
 
           <Link href={`/posts/${slug}`} className="block">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 text-charcoal leading-[1.1] group-hover:text-burgundy transition-colors duration-300 text-balance">
+            <h2 className="text-6xl md:text-8xl font-display font-bold mb-10 text-charcoal leading-[0.9] tracking-tight group-hover:text-burgundy transition-colors duration-500 text-balance">
               {frontmatter.title}
             </h2>
           </Link>
 
-          <p className="text-xl md:text-2xl font-serif text-charcoal/70 leading-relaxed max-w-3xl mx-auto mb-8 text-balance">
+          <p className="text-2xl md:text-3xl font-serif text-charcoal/80 leading-relaxed max-w-3xl mx-auto mb-12 text-balance antialiased">
             {frontmatter.excerpt}
           </p>
 
           <Link 
             href={`/posts/${slug}`}
-            className="inline-block text-sm font-sans font-medium uppercase tracking-[0.2em] text-burgundy border-b border-burgundy/30 pb-1 hover:border-burgundy transition-all"
+            className="inline-flex flex-col items-center group/btn"
           >
-            Read Article
+            <span className="text-xs font-sans font-bold uppercase tracking-[0.25em] text-burgundy mb-2 group-hover/btn:tracking-[0.4em] transition-all duration-500">Read Article</span>
+            <span className="w-px h-12 bg-burgundy/30 group-hover/btn:h-20 group-hover/btn:bg-burgundy transition-all duration-500"></span>
           </Link>
         </div>
       </article>
@@ -52,15 +53,15 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   // Minimal List Layout (Side bar or compact)
   if (minimal) {
     return (
-      <article className="group py-4 border-b border-charcoal/5 last:border-0">
+      <article className="group py-6 border-t border-charcoal/10 first:border-t-0">
         <Link href={`/posts/${slug}`} className="block">
-          <span className="block text-xs font-sans text-burgundy mb-1 uppercase tracking-wider">
+          <span className="block text-[10px] font-sans font-bold text-burgundy mb-2 uppercase tracking-[0.2em]">
             {frontmatter.category}
           </span>
-          <h3 className="text-xl font-display font-semibold text-charcoal group-hover:text-burgundy transition-colors leading-tight">
+          <h3 className="text-xl font-display font-bold text-charcoal group-hover:text-burgundy transition-colors leading-tight mb-2">
             {frontmatter.title}
           </h3>
-          <span className="block text-xs font-sans text-charcoal/40 mt-2">
+          <span className="block text-xs font-serif italic text-charcoal/40">
             {formatDate(frontmatter.date)}
           </span>
         </Link>
@@ -70,32 +71,34 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
 
   // Standard Grid Layout
   return (
-    <article className="group flex flex-col h-full border-b border-charcoal/10 pb-8">
-      <div className="mb-4 flex items-center space-x-3 text-xs font-sans tracking-widest uppercase">
+    <article className="group flex flex-col h-full">
+      <div className="mb-6 flex items-center space-x-3 text-[10px] font-sans font-bold tracking-[0.25em] uppercase">
         <span className={categoryColors[frontmatter.category] || 'text-charcoal'}>
           {frontmatter.category}
         </span>
-        <span className="text-charcoal/20">|</span>
-        <span className="text-charcoal/50">{formatDate(frontmatter.date)}</span>
+        <span className="text-charcoal/20">/</span>
+        <span className="text-charcoal/40">{formatDate(frontmatter.date)}</span>
       </div>
 
       <Link href={`/posts/${slug}`} className="block group-hover:opacity-95 transition-opacity">
-        <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 text-charcoal leading-tight group-hover:text-burgundy transition-colors duration-300">
+        <h3 className="text-3xl md:text-4xl font-display font-bold mb-6 text-charcoal leading-[1.1] group-hover:text-burgundy transition-colors duration-300 tracking-tight">
           {frontmatter.title}
         </h3>
         
-        <p className="text-lg font-serif text-charcoal/70 leading-relaxed mb-6 line-clamp-3">
+        <p className="text-lg font-serif text-charcoal/70 leading-[1.6] mb-8 line-clamp-3">
           {frontmatter.excerpt}
         </p>
       </Link>
 
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-6 border-t border-charcoal/5">
         <Link 
           href={`/posts/${slug}`}
-          className="text-xs font-sans font-bold uppercase tracking-widest text-charcoal/40 group-hover:text-burgundy transition-colors flex items-center gap-2"
+          className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-charcoal/40 group-hover:text-burgundy transition-colors flex items-center gap-3"
         >
           Read More
-          <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+          <svg className="w-3 h-3 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
         </Link>
       </div>
     </article>
