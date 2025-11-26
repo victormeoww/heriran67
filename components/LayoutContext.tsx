@@ -9,12 +9,13 @@ interface LayoutContextType {
   direction: Direction
   language: Language
   toggleLanguage: () => void
+  setLanguage: (lang: Language) => void
 }
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined)
 
 export function LayoutProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('fa')
+  const [language, setLanguageState] = useState<Language>('fa')
   const [direction, setDirection] = useState<Direction>('rtl')
 
   useEffect(() => {
@@ -24,11 +25,15 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
   }, [language])
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'fa' ? 'en' : 'fa'))
+    setLanguageState((prev) => (prev === 'fa' ? 'en' : 'fa'))
+  }
+  
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang)
   }
 
   return (
-    <LayoutContext.Provider value={{ direction, language, toggleLanguage }}>
+    <LayoutContext.Provider value={{ direction, language, toggleLanguage, setLanguage }}>
       {children}
     </LayoutContext.Provider>
   )

@@ -12,6 +12,9 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   const { slug, frontmatter } = post
   const { language } = useLayout()
   
+  // Build the post URL with language parameter
+  const postUrl = language === 'en' ? `/posts/${slug}?lang=en` : `/posts/${slug}`
+  
   const categoryColor = (cat: string) => {
     // Simple map for Persian categories if needed, or use same logic
     if (cat === 'شخصی' || cat === 'Personal') return 'text-gold';
@@ -34,7 +37,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
           </div>
 
           {/* Headline */}
-          <Link href={`/posts/${slug}`} className="block w-full">
+          <Link href={postUrl} className="block w-full">
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-charcoal leading-tight group-hover:text-burgundy transition-colors duration-300">
               {frontmatter.title}
             </h2>
@@ -47,7 +50,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
 
           {/* Call to Action */}
           <Link 
-            href={`/posts/${slug}`}
+            href={postUrl}
             className="inline-flex items-center gap-2 text-sm font-bold text-burgundy border-b border-burgundy pb-1 hover:opacity-80 transition-opacity"
           >
             {language === 'fa' ? 'ادامه مطلب' : 'Read Story'}
@@ -62,7 +65,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   if (minimal) {
     return (
       <article className="group py-3 border-b border-charcoal/5 last:border-0">
-        <Link href={`/posts/${slug}`} className="block">
+        <Link href={postUrl} className="block">
           <div className="flex items-baseline justify-between mb-1">
             <span className={`text-[10px] font-bold ${categoryColor(frontmatter.category)}`}>
               {frontmatter.category}
@@ -92,7 +95,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
       </div>
 
       {/* Title */}
-      <Link href={`/posts/${slug}`} className="block group-hover:opacity-95 transition-opacity">
+      <Link href={postUrl} className="block group-hover:opacity-95 transition-opacity">
         <h3 className="text-2xl md:text-3xl font-bold mb-4 text-charcoal leading-tight group-hover:text-burgundy transition-colors duration-300">
           {frontmatter.title}
         </h3>

@@ -27,17 +27,22 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
       
       {/* Disclaimer for English Mode */}
       {language === 'en' && showDisclaimer && (
-        <div className="bg-burgundy/10 border border-burgundy/20 text-burgundy p-4 mb-8 rounded-sm relative text-sm font-bold tracking-wide fade-in">
-          <div className="flex items-start justify-between gap-4">
-            <p>
-              <span className="mr-2">⚠️</span>
-              Note: Some translations may be AI-generated as content is originally written in Persian. Translation is ongoing and may be slow.
-            </p>
+        <div className="border-l-4 border-gold bg-sand/50 px-6 py-5 mb-10 fade-in">
+          <div className="flex items-start justify-between gap-6">
+            <div className="space-y-1">
+              <p className="text-sm font-sans font-medium text-charcoal">
+                This site is run by one person.
+              </p>
+              <p className="text-xs text-charcoal/60 leading-relaxed">
+                All content is originally written in Persian. English translations are a work in progress—some may be AI-assisted. Thank you for your patience.
+              </p>
+            </div>
             <button 
               onClick={() => setShowDisclaimer(false)}
-              className="opacity-50 hover:opacity-100"
+              className="text-charcoal/30 hover:text-charcoal/60 transition-colors text-lg leading-none mt-0.5"
+              aria-label="Dismiss"
             >
-              ✕
+              ×
             </button>
           </div>
         </div>
