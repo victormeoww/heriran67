@@ -11,11 +11,19 @@ interface PostCardProps {
   minimal?: boolean
 }
 
-// Helper to format relative time
+// Helper to get current time in Tehran timezone
+function getTehranNow(): Date {
+  // Tehran is UTC+3:30
+  const now = new Date()
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000)
+  return new Date(utc + (3.5 * 60 * 60 * 1000))
+}
+
+// Helper to format relative time using Tehran timezone
 function getRelativeTime(dateString: string, language: 'fa' | 'en'): string {
   const date = new Date(dateString)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
+  const tehranNow = getTehranNow()
+  const diffMs = tehranNow.getTime() - date.getTime()
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
   const diffWeeks = Math.floor(diffDays / 7)
   const diffMonths = Math.floor(diffDays / 30)
@@ -49,14 +57,14 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   const { language } = useLayout()
   const [relativeDate, setRelativeDate] = useState<string>(frontmatter.date)
   
-  // Update relative date on mount and when language changes
+  // Update relative date on mount and when language changes (Tehran timezone, every second)
   useEffect(() => {
     setRelativeDate(getRelativeTime(frontmatter.date, language))
     
-    // Update every minute
+    // Update every second for real-time accuracy
     const timer = setInterval(() => {
       setRelativeDate(getRelativeTime(frontmatter.date, language))
-    }, 60000)
+    }, 1000)
     
     return () => clearInterval(timer)
   }, [frontmatter.date, language])

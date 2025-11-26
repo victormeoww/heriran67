@@ -4,53 +4,11 @@ import { Post } from '@/lib/posts'
 import PostCard from '@/components/PostCard'
 import PersianPattern from '@/components/PersianPattern'
 import { useLayout } from './LayoutContext'
-import { useState, useEffect } from 'react'
-
-// Helper to format relative time
-function getRelativeTime(dateString: string, language: 'fa' | 'en'): string {
-  const date = new Date(dateString)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-  const diffWeeks = Math.floor(diffDays / 7)
-  const diffMonths = Math.floor(diffDays / 30)
-  const diffYears = Math.floor(diffDays / 365)
-
-  if (language === 'fa') {
-    if (diffDays === 0) return 'امروز'
-    if (diffDays === 1) return 'دیروز'
-    if (diffDays < 7) return `${diffDays} روز پیش`
-    if (diffWeeks === 1) return 'یک هفته پیش'
-    if (diffWeeks < 4) return `${diffWeeks} هفته پیش`
-    if (diffMonths === 1) return 'یک ماه پیش'
-    if (diffMonths < 12) return `${diffMonths} ماه پیش`
-    if (diffYears === 1) return 'یک سال پیش'
-    return `${diffYears} سال پیش`
-  } else {
-    if (diffDays === 0) return 'Today'
-    if (diffDays === 1) return 'Yesterday'
-    if (diffDays < 7) return `${diffDays} days ago`
-    if (diffWeeks === 1) return '1 week ago'
-    if (diffWeeks < 4) return `${diffWeeks} weeks ago`
-    if (diffMonths === 1) return '1 month ago'
-    if (diffMonths < 12) return `${diffMonths} months ago`
-    if (diffYears === 1) return '1 year ago'
-    return `${diffYears} years ago`
-  }
-}
+import { useState } from 'react'
 
 export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], postsEn: Post[] }) {
   const { language } = useLayout()
   const [showDisclaimer, setShowDisclaimer] = useState(true)
-  const [currentTime, setCurrentTime] = useState<Date>(new Date())
-  
-  // Update time every minute to keep relative dates fresh
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 60000) // Update every minute
-    return () => clearInterval(timer)
-  }, [])
   
   // Select posts based on language
   const posts = language === 'fa' ? postsFa : postsEn
@@ -153,7 +111,7 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
                 </a>
               </div>
               <div className="absolute -bottom-6 -left-6 opacity-10">
-                <PersianPattern variant="arabesque" className="w-28 h-28" />
+                <PersianPattern variant="star" className="w-28 h-28" />
               </div>
             </div>
 
