@@ -126,16 +126,21 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
             {/* Dissident Fund Widget */}
             <div className="bg-gradient-to-br from-burgundy to-burgundy/90 text-cream p-6 md:p-8 mb-8 rounded-sm relative overflow-hidden shadow-lg">
               <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-4">
                   <span className="text-gold text-xl">✦</span>
                   <h3 className="text-lg font-bold text-gold tracking-wide">
                     {language === 'fa' ? 'صندوق مخالفان' : 'Dissident Fund'}
                   </h3>
                 </div>
-                <p className={`text-sm leading-relaxed text-cream/95 mb-5 ${language === 'fa' ? 'font-persian' : 'font-sans'}`}>
+                <p className={`text-sm leading-relaxed text-cream/95 mb-4 ${language === 'fa' ? 'font-persian' : 'font-sans'}`}>
                   {language === 'fa' 
-                    ? 'من در تأسیس «صندوق مخالفان» شریک هستم تا از افرادی مثل خودم در مسیر فعالیت‌شان حمایت کنیم.' 
-                    : 'I have co-founded "Dissident Fund" to support people like me on our activism journey.'}
+                    ? 'من یکی از بنیان‌گذاران «صندوق مخالفان» هستم — سازمانی که از فعالان و صداهای مقاومت حمایت می‌کند.' 
+                    : 'I co-founded Dissident Fund — an organization supporting activists and voices of resistance.'}
+                </p>
+                <p className={`text-xs leading-relaxed text-cream/80 mb-5 ${language === 'fa' ? 'font-persian' : 'font-sans'}`}>
+                  {language === 'fa' 
+                    ? 'اگر می‌خواهید وب‌سایتی راه‌اندازی کنید یا مثل من فعالیت کنید، با ما تماس بگیرید.' 
+                    : 'Want to start a website or pursue activism like this? Reach out to us.'}
                 </p>
                 <a 
                   href="https://dissidentfund.com" 
@@ -143,7 +148,7 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-bold text-gold hover:text-cream transition-colors border-b border-gold/50 hover:border-cream pb-0.5"
                 >
-                  {language === 'fa' ? 'بیشتر بدانید و حمایت کنید' : 'Learn more & support'}
+                  {language === 'fa' ? 'حمایت کنید' : 'Support & Connect'}
                   <span className={`text-base leading-none ${language === 'fa' ? 'rotate-180' : ''}`}>→</span>
                 </a>
               </div>
