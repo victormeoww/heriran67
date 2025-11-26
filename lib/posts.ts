@@ -3,12 +3,14 @@ import path from 'path'
 import matter from 'gray-matter'
 import { format } from 'date-fns'
 
-const postsDirectory = path.join(process.cwd(), 'content/posts')
+// Define both directories
+const postsDirectoryFa = path.join(process.cwd(), 'content/posts')
+const postsDirectoryEn = path.join(process.cwd(), 'content/posts-en')
 
 export interface PostFrontmatter {
   title: string
   date: string
-  category: 'Essay' | 'Breaking News' | 'Personal'
+  category: string
   excerpt: string
   featured?: boolean
 }
@@ -18,20 +20,28 @@ export interface Post {
   frontmatter: PostFrontmatter
   content: string
   readTime: number
+  locale?: 'fa' | 'en'
 }
 
-export function getAllPosts(): Post[] {
+// Helper to get directory based on locale
+function getDirectory(locale: 'fa' | 'en' = 'fa') {
+  return locale === 'en' ? postsDirectoryEn : postsDirectoryFa
+}
+
+export function getAllPosts(locale: 'fa' | 'en' = 'fa'): Post[] {
+  const directory = getDirectory(locale)
+  
   // Create directory if it doesn't exist
-  if (!fs.existsSync(postsDirectory)) {
+  if (!fs.existsSync(directory)) {
     return []
   }
 
-  const fileNames = fs.readdirSync(postsDirectory)
+  const fileNames = fs.readdirSync(directory)
   const posts = fileNames
     .filter(fileName => fileName.endsWith('.md'))
     .map(fileName => {
       const slug = fileName.replace(/\.md$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
+      const fullPath = path.join(directory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data, content } = matter(fileContents)
       
@@ -44,6 +54,7 @@ export function getAllPosts(): Post[] {
         frontmatter: data as PostFrontmatter,
         content,
         readTime,
+        locale,
       }
     })
 
@@ -55,9 +66,10 @@ export function getAllPosts(): Post[] {
   })
 }
 
-export function getPostBySlug(slug: string): Post | null {
+export function getPostBySlug(slug: string, locale: 'fa' | 'en' = 'fa'): Post | null {
   try {
-    const fullPath = path.join(postsDirectory, `${slug}.md`)
+    const directory = getDirectory(locale)
+    const fullPath = path.join(directory, `${slug}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
     
@@ -69,19 +81,20 @@ export function getPostBySlug(slug: string): Post | null {
       frontmatter: data as PostFrontmatter,
       content,
       readTime,
+      locale
     }
   } catch {
     return null
   }
 }
 
-export function getPostsByCategory(category: string): Post[] {
-  const allPosts = getAllPosts()
+export function getPostsByCategory(category: string, locale: 'fa' | 'en' = 'fa'): Post[] {
+  const allPosts = getAllPosts(locale)
   return allPosts.filter(post => post.frontmatter.category === category)
 }
 
-export function getFeaturedPost(): Post | null {
-  const allPosts = getAllPosts()
+export function getFeaturedPost(locale: 'fa' | 'en' = 'fa'): Post | null {
+  const allPosts = getAllPosts(locale)
   return allPosts.find(post => post.frontmatter.featured) || allPosts[0] || null
 }
 
@@ -99,4 +112,3 @@ export function getPageContent(pageName: string): { content: string; data: Recor
     return null
   }
 }
-

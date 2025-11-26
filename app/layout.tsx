@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Crimson_Text, Inter } from 'next/font/google'
+import { Cormorant_Garamond, Crimson_Text, Inter, Vazirmatn } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { LayoutProvider } from '@/components/LayoutContext'
 
 const cormorant = Cormorant_Garamond({
   weight: ['400', '600', '700'],
@@ -24,6 +25,12 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
+const vazirmatn = Vazirmatn({
+  subsets: ['arabic'],
+  display: 'swap',
+  variable: '--font-vazirmatn',
+})
+
 export const metadata: Metadata = {
   title: 'HER iran | An anonymous voice from inside Iran',
   description: 'An anonymous editorial platform for an Iranian woman to publish articles, essays, and breaking news.',
@@ -40,15 +47,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${crimson.variable} ${inter.variable}`}>
-      <body className="bg-cream text-charcoal antialiased">
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
+    <LayoutProvider>
+      <html className={`${cormorant.variable} ${crimson.variable} ${inter.variable} ${vazirmatn.variable}`}>
+        <body className="bg-cream text-charcoal antialiased transition-all duration-300">
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </html>
+    </LayoutProvider>
   )
 }
-
