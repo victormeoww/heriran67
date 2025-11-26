@@ -53,11 +53,6 @@ export default function Footer() {
                   Secure Contact
                 </a>
               </li>
-              <li>
-                <Link href="/rss.xml" className="block text-sm font-sans tracking-widest text-cream/60 hover:text-white transition-colors uppercase">
-                  RSS Feed
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

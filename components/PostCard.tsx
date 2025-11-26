@@ -26,7 +26,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
       <article className="group relative">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Kicker */}
-          <div className="flex items-center gap-3 mb-6 text-[11px] font-sans font-bold tracking-[0.3em] uppercase text-charcoal/60">
+          <div className="flex items-center gap-3 mb-4 md:mb-6 text-[10px] font-sans font-bold tracking-[0.3em] uppercase text-charcoal/60">
             <span className={`${categoryColor(frontmatter.category)}`}>
               {frontmatter.category}
             </span>
@@ -36,20 +36,20 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
 
           {/* Headline */}
           <Link href={`/posts/${slug}`} className="block">
-            <h2 className="text-6xl md:text-8xl lg:text-9xl font-display font-bold mb-8 text-charcoal leading-[0.9] tracking-tight text-balance group-hover:text-burgundy transition-colors duration-500">
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 md:mb-8 text-charcoal leading-[0.9] tracking-tight text-balance group-hover:text-burgundy transition-colors duration-500">
               {frontmatter.title}
             </h2>
           </Link>
 
-          {/* Deck / Excerpt */}
-          <p className="text-xl md:text-3xl font-serif text-charcoal/80 leading-relaxed max-w-2xl mx-auto mb-10 text-balance">
+          {/* Deck / Excerpt - Reduced max-width and font size slightly for better fit */}
+          <p className="text-lg md:text-2xl font-serif text-charcoal/80 leading-relaxed max-w-xl mx-auto mb-8 md:mb-10 text-balance">
             {frontmatter.excerpt}
           </p>
 
           {/* Call to Action */}
           <Link 
             href={`/posts/${slug}`}
-            className="inline-flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-[0.25em] text-burgundy hover:bg-burgundy hover:text-cream px-6 py-3 border border-burgundy transition-all duration-300"
+            className="inline-flex items-center gap-2 text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-burgundy hover:bg-burgundy hover:text-cream px-5 py-2.5 border border-burgundy transition-all duration-300"
           >
             Read Story
             <span className="text-lg leading-none mb-0.5">→</span>
@@ -94,11 +94,11 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
 
       {/* Title */}
       <Link href={`/posts/${slug}`} className="block group-hover:opacity-95 transition-opacity">
-        <h3 className="text-4xl md:text-5xl font-display font-bold mb-5 text-charcoal leading-[0.95] group-hover:text-burgundy transition-colors duration-300 tracking-tight text-balance">
+        <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 text-charcoal leading-[1.0] group-hover:text-burgundy transition-colors duration-300 tracking-tight text-balance">
           {frontmatter.title}
         </h3>
         
-        <p className="text-lg font-serif text-charcoal/70 leading-[1.6] mb-6 line-clamp-3">
+        <p className="text-base md:text-lg font-serif text-charcoal/70 leading-[1.6] mb-6 line-clamp-3">
           {frontmatter.excerpt}
         </p>
       </Link>

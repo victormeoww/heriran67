@@ -23,7 +23,7 @@ export default function HomePage() {
               <PersianPattern variant="star" className="w-full h-full text-charcoal" />
             </div>
             
-            <div className="p-6 md:p-12 lg:p-20">
+            <div className="p-6 md:p-12 lg:p-16">
               <PostCard post={featuredPost} featured />
             </div>
           </section>
@@ -98,18 +98,6 @@ export default function HomePage() {
                     <p className="py-4 text-sm font-serif text-charcoal/50 italic">No archive available.</p>
                   )}
                 </div>
-              </div>
-
-              {/* Newsletter / RSS Stub */}
-              <div className="text-center p-8 border border-charcoal/10 bg-white/50">
-                <PersianPattern variant="geometric" className="w-8 h-8 mx-auto text-burgundy mb-4 opacity-50" />
-                <h4 className="font-display text-xl font-bold text-charcoal mb-2">Stay Connected</h4>
-                <p className="text-sm font-serif text-charcoal/60 mb-4">
-                  Follow our RSS feed for secure updates.
-                </p>
-                <a href="/rss.xml" className="inline-block text-[10px] font-sans font-bold uppercase tracking-[0.2em] bg-burgundy text-cream px-4 py-2 hover:bg-charcoal transition-colors">
-                  Subscribe RSS
-                </a>
               </div>
 
             </div>
