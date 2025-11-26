@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Post } from '@/lib/posts'
 import { useLayout } from './LayoutContext'
+import { useState, useEffect } from 'react'
 
 interface PostCardProps {
   post: Post
@@ -8,9 +9,55 @@ interface PostCardProps {
   minimal?: boolean
 }
 
+// Helper to format relative time
+function getRelativeTime(dateString: string, language: 'fa' | 'en'): string {
+  const date = new Date(dateString)
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+  const diffWeeks = Math.floor(diffDays / 7)
+  const diffMonths = Math.floor(diffDays / 30)
+  const diffYears = Math.floor(diffDays / 365)
+
+  if (language === 'fa') {
+    if (diffDays === 0) return 'امروز'
+    if (diffDays === 1) return 'دیروز'
+    if (diffDays < 7) return `${diffDays} روز پیش`
+    if (diffWeeks === 1) return 'یک هفته پیش'
+    if (diffWeeks < 4) return `${diffWeeks} هفته پیش`
+    if (diffMonths === 1) return 'یک ماه پیش'
+    if (diffMonths < 12) return `${diffMonths} ماه پیش`
+    if (diffYears === 1) return 'یک سال پیش'
+    return `${diffYears} سال پیش`
+  } else {
+    if (diffDays === 0) return 'Today'
+    if (diffDays === 1) return 'Yesterday'
+    if (diffDays < 7) return `${diffDays} days ago`
+    if (diffWeeks === 1) return '1 week ago'
+    if (diffWeeks < 4) return `${diffWeeks} weeks ago`
+    if (diffMonths === 1) return '1 month ago'
+    if (diffMonths < 12) return `${diffMonths} months ago`
+    if (diffYears === 1) return '1 year ago'
+    return `${diffYears} years ago`
+  }
+}
+
 export default function PostCard({ post, featured = false, minimal = false }: PostCardProps) {
   const { slug, frontmatter } = post
   const { language } = useLayout()
+  const [relativeDate, setRelativeDate] = useState<string>(frontmatter.date)
+  
+  // Update relative date on mount and when language changes
+  useEffect(() => {
+    setRelativeDate(getRelativeTime(frontmatter.date, language))
+    
+    // Update every minute
+    const timer = setInterval(() => {
+      setRelativeDate(getRelativeTime(frontmatter.date, language))
+    }, 60000)
+    
+    return () => clearInterval(timer)
+  }, [frontmatter.date, language])
   
   // Build the post URL with language parameter
   const postUrl = language === 'en' ? `/posts/${slug}?lang=en` : `/posts/${slug}`
@@ -33,7 +80,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
               {frontmatter.category}
             </span>
             <span className="w-1 h-1 rounded-full bg-charcoal/30"></span>
-            <span>{frontmatter.date}</span>
+            <span>{relativeDate}</span>
           </div>
 
           {/* Headline */}
@@ -75,7 +122,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
             {frontmatter.title}
           </h3>
           <span className="block text-[10px] text-charcoal/40">
-            {frontmatter.date}
+            {relativeDate}
           </span>
         </Link>
       </article>
@@ -91,7 +138,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
           {frontmatter.category}
         </span>
         <span>/</span>
-        <span>{frontmatter.date}</span>
+        <span>{relativeDate}</span>
       </div>
 
       {/* Title */}

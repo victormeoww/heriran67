@@ -4,11 +4,53 @@ import { Post } from '@/lib/posts'
 import PostCard from '@/components/PostCard'
 import PersianPattern from '@/components/PersianPattern'
 import { useLayout } from './LayoutContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+// Helper to format relative time
+function getRelativeTime(dateString: string, language: 'fa' | 'en'): string {
+  const date = new Date(dateString)
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+  const diffWeeks = Math.floor(diffDays / 7)
+  const diffMonths = Math.floor(diffDays / 30)
+  const diffYears = Math.floor(diffDays / 365)
+
+  if (language === 'fa') {
+    if (diffDays === 0) return 'امروز'
+    if (diffDays === 1) return 'دیروز'
+    if (diffDays < 7) return `${diffDays} روز پیش`
+    if (diffWeeks === 1) return 'یک هفته پیش'
+    if (diffWeeks < 4) return `${diffWeeks} هفته پیش`
+    if (diffMonths === 1) return 'یک ماه پیش'
+    if (diffMonths < 12) return `${diffMonths} ماه پیش`
+    if (diffYears === 1) return 'یک سال پیش'
+    return `${diffYears} سال پیش`
+  } else {
+    if (diffDays === 0) return 'Today'
+    if (diffDays === 1) return 'Yesterday'
+    if (diffDays < 7) return `${diffDays} days ago`
+    if (diffWeeks === 1) return '1 week ago'
+    if (diffWeeks < 4) return `${diffWeeks} weeks ago`
+    if (diffMonths === 1) return '1 month ago'
+    if (diffMonths < 12) return `${diffMonths} months ago`
+    if (diffYears === 1) return '1 year ago'
+    return `${diffYears} years ago`
+  }
+}
 
 export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], postsEn: Post[] }) {
   const { language } = useLayout()
   const [showDisclaimer, setShowDisclaimer] = useState(true)
+  const [currentTime, setCurrentTime] = useState<Date>(new Date())
+  
+  // Update time every minute to keep relative dates fresh
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 60000) // Update every minute
+    return () => clearInterval(timer)
+  }, [])
   
   // Select posts based on language
   const posts = language === 'fa' ? postsFa : postsEn
@@ -81,6 +123,35 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
         {/* Sidebar (Right in LTR, Left in RTL) */}
         <div className="lg:col-span-4">
           <div className="sticky top-24">
+            {/* Dissident Fund Widget */}
+            <div className="bg-gradient-to-br from-burgundy to-burgundy/90 text-cream p-6 md:p-8 mb-8 rounded-sm relative overflow-hidden shadow-lg">
+              <div className="relative z-10">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-gold text-xl">✦</span>
+                  <h3 className="text-lg font-bold text-gold tracking-wide">
+                    {language === 'fa' ? 'صندوق مخالفان' : 'Dissident Fund'}
+                  </h3>
+                </div>
+                <p className={`text-sm leading-relaxed text-cream/95 mb-5 ${language === 'fa' ? 'font-persian' : 'font-sans'}`}>
+                  {language === 'fa' 
+                    ? 'من در تأسیس «صندوق مخالفان» شریک هستم تا از افرادی مثل خودم در مسیر فعالیت‌شان حمایت کنیم.' 
+                    : 'I have co-founded "Dissident Fund" to support people like me on our activism journey.'}
+                </p>
+                <a 
+                  href="https://dissidentfund.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-gold hover:text-cream transition-colors border-b border-gold/50 hover:border-cream pb-0.5"
+                >
+                  {language === 'fa' ? 'بیشتر بدانید و حمایت کنید' : 'Learn more & support'}
+                  <span className={`text-base leading-none ${language === 'fa' ? 'rotate-180' : ''}`}>→</span>
+                </a>
+              </div>
+              <div className="absolute -bottom-6 -left-6 opacity-10">
+                <PersianPattern variant="arabesque" className="w-28 h-28" />
+              </div>
+            </div>
+
             {/* About Widget */}
             <div className="bg-charcoal text-cream p-6 md:p-8 mb-12 rounded-sm relative overflow-hidden">
               <div className="relative z-10">
