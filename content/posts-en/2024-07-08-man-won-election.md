@@ -25,7 +25,7 @@ I am sitting by my window and looking at the sea. The Caspian doesn't care about
 
 Maybe that's the only honest thing left in this country. The sea. The mountains. The things that existed before the revolution and will exist after whatever comes next.
 
-I want to believe him. I want to believe that something can change. But I have been a girl in Iran for seventeen years, and I have learned that hope is a kind of currency here—and we spend it faster than we earn it.
+I want to believe him. I want to believe that something can change. But I have been a girl in Iran for sixteen years, and I have learned that hope is a kind of currency here—and we spend it faster than we earn it.
 
 I'll wait. I'll watch.
 

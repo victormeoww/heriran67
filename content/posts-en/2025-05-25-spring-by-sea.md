@@ -21,5 +21,5 @@ They want us dead or silent or broken.
 
 Being alive and speaking and whole—that is defiance too.
 
-The pomegranate trees are blooming. The sea is blue today. I am eighteen years old and I am still here.
+The pomegranate trees are blooming. The sea is blue today. I am seventeen years old and I am still here.
 

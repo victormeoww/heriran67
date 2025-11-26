@@ -11,7 +11,7 @@ Outside my window, the sea is the color of steel. Spring is coming slowly hereâ€
 
 In Tehran, women are still being stopped on the street. The hijab law is suspended but not abolished. The morality police are supposed to "not confront" women, according to Pezeshkian, but they do. They always do.
 
-I turned eighteen recently. Not todayâ€”I won't tell you when. But recently. I am an adult now, by the laws of this country. I can vote for presidents who cannot change anything. I can be tried as an adult for the crime of my own hair.
+I am seventeen. Not yet an adult by the laws of this country, but it makes no difference. I can vote for presidents who cannot change anything. I can be tried as an adult for the crime of my own hair.
 
 When I was a child, my grandmother used to tell me stories about before the revolution. About wearing miniskirts to university. About dancing at parties. About a country I cannot imagine, because I have never lived in it.
 
