@@ -5,93 +5,118 @@ import PersianPattern from '@/components/PersianPattern'
 export default function HomePage() {
   const featuredPost = getFeaturedPost()
   const allPosts = getAllPosts()
-  // Filter out featured post, then slice
   const otherPosts = allPosts.filter(post => post.slug !== featuredPost?.slug)
   
-  // Split posts for layout variety
-  const mainPosts = otherPosts.slice(0, 4)
-  const sidePosts = otherPosts.slice(4, 8)
+  const mainPosts = otherPosts.slice(0, 6)
+  const sidePosts = otherPosts.slice(6, 10)
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* Hero / Featured Section */}
-      <section className="relative pt-16 md:pt-28 pb-16 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Header Statement */}
-          <div className="text-center mb-20 md:mb-28 fade-in">
-             <div className="flex justify-center mb-6 opacity-40">
-              <PersianPattern variant="star" className="w-12 h-12 text-burgundy" />
+      {/* Main Content Container - The "Paper" */}
+      <div className="max-w-[1400px] mx-auto border-x border-charcoal/10 bg-cream min-h-screen shadow-2xl shadow-charcoal/5">
+        
+        {/* Featured / Hero Section */}
+        {featuredPost && (
+          <section className="border-b border-charcoal/10 relative overflow-hidden group">
+            {/* Background Pattern Watermark */}
+            <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] pointer-events-none">
+              <PersianPattern variant="star" className="w-full h-full text-charcoal" />
             </div>
-            <h1 className="text-xl md:text-3xl font-display italic text-charcoal/60 max-w-2xl mx-auto leading-relaxed">
-              &quot;Voices from the shadows, speaking truth to power.&quot;
-            </h1>
-          </div>
-
-          {featuredPost && (
-            <div className="fade-in delay-100">
+            
+            <div className="p-6 md:p-12 lg:p-20">
               <PostCard post={featuredPost} featured />
             </div>
-          )}
-        </div>
-      </section>
+          </section>
+        )}
 
-      {/* Main Content Grid */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        {/* Main Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12">
           
-          {/* Main Column Header (Mobile/Tablet - visible above) */}
-          <div className="lg:col-span-8 lg:hidden mb-8 border-b border-charcoal/10 pb-4">
-             <h2 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal">
-              Latest Stories
-            </h2>
-          </div>
-
-          {/* Main Column */}
-          <div className="lg:col-span-8 space-y-20">
-            {/* Desktop Header (Inside column) */}
-            <div className="hidden lg:block mb-12 border-b border-charcoal/10 pb-4">
-               <h2 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal">
-                Latest Stories
+          {/* Left Column - Main Feed */}
+          <div className="lg:col-span-8 lg:border-r border-charcoal/10 p-6 md:p-12">
+            {/* Section Header */}
+            <div className="flex items-center gap-4 mb-12">
+              <span className="w-3 h-3 bg-burgundy rotate-45"></span>
+              <h2 className="text-xs font-sans font-bold tracking-[0.3em] uppercase text-charcoal">
+                Latest Dispatches
               </h2>
+              <div className="h-px flex-grow bg-charcoal/10"></div>
             </div>
 
-            {mainPosts.map((post, index) => (
-              <div key={post.slug} className="fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                <PostCard post={post} />
-              </div>
-            ))}
+            <div className="space-y-16">
+              {mainPosts.map((post, index) => (
+                <div key={post.slug} className="fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                  <PostCard post={post} />
+                  {/* Divider between posts, but not after the last one */}
+                  {index !== mainPosts.length - 1 && (
+                    <div className="mt-16 flex justify-center opacity-20">
+                       <PersianPattern variant="divider" className="w-48 h-2 text-charcoal" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Sidebar Column */}
-          <div className="lg:col-span-4 space-y-12">
-            <div className="sticky top-32">
-              <div className="bg-sand/30 p-6 md:p-8 rounded-sm border border-charcoal/5 mb-12">
-                <h3 className="font-display text-2xl font-bold text-charcoal mb-4">About HER iran</h3>
-                <p className="font-serif text-charcoal/70 mb-6 leading-relaxed">
-                  An independent, anonymous platform documenting the struggle for freedom in Iran. 
-                </p>
-                <div className="flex justify-center">
-                   <PersianPattern variant="divider" className="w-full h-4 text-burgundy opacity-20" />
+          {/* Right Column - Sidebar */}
+          <div className="lg:col-span-4 bg-sand/10">
+            <div className="sticky top-24 p-6 md:p-12">
+              
+              {/* About Box */}
+              <div className="bg-charcoal text-cream p-8 mb-16 shadow-lg relative overflow-hidden">
+                <div className="relative z-10">
+                  <h3 className="font-display text-2xl font-bold mb-4 text-gold">Mission</h3>
+                  <p className="font-serif text-lg leading-relaxed text-cream/90 mb-6">
+                    We are the anonymous chroniclers of a changing Iran. Documenting the struggle, uncensored and unfiltered.
+                  </p>
+                  <div className="w-full h-px bg-white/20 mb-6"></div>
+                  <p className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-gold/80">
+                    Established 2025
+                  </p>
+                </div>
+                {/* Decorative bg pattern */}
+                <div className="absolute -bottom-10 -right-10 text-white/5">
+                  <PersianPattern variant="geometric" className="w-40 h-40" />
                 </div>
               </div>
 
-              <div className="space-y-8">
-                 <h3 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal border-b border-charcoal/10 pb-2">
-                  More Writing
-                </h3>
-                {sidePosts.length > 0 ? (
-                  sidePosts.map((post) => (
-                    <PostCard key={post.slug} post={post} minimal />
-                  ))
-                ) : (
-                  <p className="text-sm font-serif text-charcoal/50 italic">No more posts to load.</p>
-                )}
+              {/* Secondary Posts List */}
+              <div className="mb-12">
+                <div className="flex items-center gap-3 mb-8 border-b border-charcoal/10 pb-3">
+                  <span className="w-2 h-2 bg-charcoal rounded-full"></span>
+                  <h3 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal">
+                    More Stories
+                  </h3>
+                </div>
+                
+                <div className="space-y-0 divide-y divide-charcoal/10 border-t border-b border-charcoal/10">
+                  {sidePosts.length > 0 ? (
+                    sidePosts.map((post) => (
+                      <PostCard key={post.slug} post={post} minimal />
+                    ))
+                  ) : (
+                    <p className="py-4 text-sm font-serif text-charcoal/50 italic">No archive available.</p>
+                  )}
+                </div>
               </div>
+
+              {/* Newsletter / RSS Stub */}
+              <div className="text-center p-8 border border-charcoal/10 bg-white/50">
+                <PersianPattern variant="geometric" className="w-8 h-8 mx-auto text-burgundy mb-4 opacity-50" />
+                <h4 className="font-display text-xl font-bold text-charcoal mb-2">Stay Connected</h4>
+                <p className="text-sm font-serif text-charcoal/60 mb-4">
+                  Follow our RSS feed for secure updates.
+                </p>
+                <a href="/rss.xml" className="inline-block text-[10px] font-sans font-bold uppercase tracking-[0.2em] bg-burgundy text-cream px-4 py-2 hover:bg-charcoal transition-colors">
+                  Subscribe RSS
+                </a>
+              </div>
+
             </div>
           </div>
+
         </div>
-      </section>
+      </div>
     </div>
   )
 }

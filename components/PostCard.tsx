@@ -9,59 +9,70 @@ interface PostCardProps {
 
 export default function PostCard({ post, featured = false, minimal = false }: PostCardProps) {
   const { slug, frontmatter } = post
-  const categoryColors = {
-    'Essay': 'text-burgundy',
-    'Breaking News': 'text-teal',
-    'Personal': 'text-gold', // Updated to Gold for better palette
+  
+  // Category Styles - simplified to just text colors, used sparingly
+  const categoryColor = (cat: string) => {
+    switch(cat) {
+      case 'Essay': return 'text-burgundy';
+      case 'Breaking News': return 'text-teal';
+      case 'Personal': return 'text-gold';
+      default: return 'text-charcoal';
+    }
   }
 
-  // Featured Post Layout (Hero style)
+  // FEATURED / HERO LAYOUT
   if (featured) {
     return (
-      <article className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-charcoal/10 pb-16 md:pb-20 mb-16 md:mb-20">
-        <div className="lg:col-span-10 lg:col-start-2 text-center">
-          <div className="flex items-center justify-center space-x-4 mb-6 md:mb-8 text-[10px] font-sans font-bold tracking-[0.3em] uppercase">
-            <span className={`${categoryColors[frontmatter.category] || 'text-charcoal'} border border-current px-2 py-1 rounded-sm`}>
+      <article className="group relative">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          {/* Kicker */}
+          <div className="flex items-center gap-3 mb-6 text-[11px] font-sans font-bold tracking-[0.3em] uppercase text-charcoal/60">
+            <span className={`${categoryColor(frontmatter.category)}`}>
               {frontmatter.category}
             </span>
-            <span className="text-charcoal/30">|</span>
-            <span className="text-charcoal/50">{formatDate(frontmatter.date)}</span>
+            <span className="w-1 h-1 rounded-full bg-charcoal/30"></span>
+            <span>{formatDate(frontmatter.date)}</span>
           </div>
 
+          {/* Headline */}
           <Link href={`/posts/${slug}`} className="block">
-            <h2 className="text-4xl md:text-6xl lg:text-8xl font-display font-bold mb-8 md:mb-10 text-charcoal leading-[0.95] tracking-tight group-hover:text-burgundy transition-colors duration-500 text-balance">
+            <h2 className="text-6xl md:text-8xl lg:text-9xl font-display font-bold mb-8 text-charcoal leading-[0.9] tracking-tight text-balance group-hover:text-burgundy transition-colors duration-500">
               {frontmatter.title}
             </h2>
           </Link>
 
-          <p className="text-lg md:text-2xl font-serif text-charcoal/80 leading-relaxed max-w-2xl mx-auto mb-10 md:mb-12 text-balance antialiased">
+          {/* Deck / Excerpt */}
+          <p className="text-xl md:text-3xl font-serif text-charcoal/80 leading-relaxed max-w-2xl mx-auto mb-10 text-balance">
             {frontmatter.excerpt}
           </p>
 
+          {/* Call to Action */}
           <Link 
             href={`/posts/${slug}`}
-            className="inline-flex flex-col items-center group/btn"
+            className="inline-flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-[0.25em] text-burgundy hover:bg-burgundy hover:text-cream px-6 py-3 border border-burgundy transition-all duration-300"
           >
-            <span className="text-xs font-sans font-bold uppercase tracking-[0.25em] text-burgundy mb-2 group-hover/btn:tracking-[0.4em] transition-all duration-500">Read Article</span>
-            <span className="w-px h-12 bg-burgundy/30 group-hover/btn:h-20 group-hover/btn:bg-burgundy transition-all duration-500"></span>
+            Read Story
+            <span className="text-lg leading-none mb-0.5">→</span>
           </Link>
         </div>
       </article>
     )
   }
 
-  // Minimal List Layout (Side bar or compact)
+  // MINIMAL / SIDEBAR LAYOUT
   if (minimal) {
     return (
-      <article className="group py-5 border-t border-charcoal/5 first:border-t-0 pl-4 border-l-2 border-transparent hover:border-burgundy transition-all duration-300">
+      <article className="group py-4 hover:bg-white/50 transition-colors px-2 -mx-2">
         <Link href={`/posts/${slug}`} className="block">
-          <span className="block text-[10px] font-sans font-bold text-burgundy mb-2 uppercase tracking-[0.2em]">
-            {frontmatter.category}
-          </span>
-          <h3 className="text-lg md:text-xl font-display font-bold text-charcoal group-hover:text-burgundy transition-colors leading-tight mb-2">
+          <div className="flex items-baseline justify-between mb-1">
+            <span className={`text-[9px] font-sans font-bold uppercase tracking-[0.15em] ${categoryColor(frontmatter.category)}`}>
+              {frontmatter.category}
+            </span>
+          </div>
+          <h3 className="text-lg font-display font-bold text-charcoal group-hover:text-burgundy transition-colors leading-tight mb-1">
             {frontmatter.title}
           </h3>
-          <span className="block text-xs font-serif italic text-charcoal/40">
+          <span className="block text-[10px] font-sans text-charcoal/40 uppercase tracking-wide">
             {formatDate(frontmatter.date)}
           </span>
         </Link>
@@ -69,36 +80,36 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
     )
   }
 
-  // Standard Grid Layout
+  // STANDARD GRID LAYOUT
   return (
-    <article className="group flex flex-col h-full transition-transform duration-500 hover:-translate-y-1">
-      <div className="mb-6 flex items-center space-x-3 text-[10px] font-sans font-bold tracking-[0.25em] uppercase">
-        <span className={categoryColors[frontmatter.category] || 'text-charcoal'}>
+    <article className="group flex flex-col h-full">
+      {/* Meta Top */}
+      <div className="mb-4 flex items-center gap-2 text-[10px] font-sans font-bold tracking-[0.2em] uppercase">
+        <span className={`${categoryColor(frontmatter.category)}`}>
           {frontmatter.category}
         </span>
         <span className="text-charcoal/20">/</span>
         <span className="text-charcoal/40">{formatDate(frontmatter.date)}</span>
       </div>
 
+      {/* Title */}
       <Link href={`/posts/${slug}`} className="block group-hover:opacity-95 transition-opacity">
-        <h3 className="text-3xl md:text-4xl font-display font-bold mb-6 text-charcoal leading-[1.1] group-hover:text-burgundy transition-colors duration-300 tracking-tight">
+        <h3 className="text-4xl md:text-5xl font-display font-bold mb-5 text-charcoal leading-[0.95] group-hover:text-burgundy transition-colors duration-300 tracking-tight text-balance">
           {frontmatter.title}
         </h3>
         
-        <p className="text-lg font-serif text-charcoal/70 leading-[1.6] mb-8 line-clamp-3">
+        <p className="text-lg font-serif text-charcoal/70 leading-[1.6] mb-6 line-clamp-3">
           {frontmatter.excerpt}
         </p>
       </Link>
 
-      <div className="mt-auto pt-6 border-t border-charcoal/5">
+      {/* Read More Link */}
+      <div className="mt-auto">
         <Link 
           href={`/posts/${slug}`}
-          className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-charcoal/40 group-hover:text-burgundy transition-colors flex items-center gap-3"
+          className="inline-block text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-charcoal/40 group-hover:text-burgundy border-b border-transparent group-hover:border-burgundy pb-0.5 transition-all"
         >
-          Read More
-          <svg className="w-3 h-3 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          Continue Reading
         </Link>
       </div>
     </article>
