@@ -18,9 +18,9 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   // Featured Post Layout (Hero style)
   if (featured) {
     return (
-      <article className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-b-2 border-charcoal pb-20 mb-20">
-        <div className="md:col-span-12 lg:col-span-10 lg:col-start-2 text-center">
-          <div className="flex items-center justify-center space-x-4 mb-8 text-[10px] font-sans font-bold tracking-[0.3em] uppercase">
+      <article className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-charcoal/10 pb-16 md:pb-20 mb-16 md:mb-20">
+        <div className="lg:col-span-10 lg:col-start-2 text-center">
+          <div className="flex items-center justify-center space-x-4 mb-6 md:mb-8 text-[10px] font-sans font-bold tracking-[0.3em] uppercase">
             <span className={`${categoryColors[frontmatter.category] || 'text-charcoal'} border border-current px-2 py-1 rounded-sm`}>
               {frontmatter.category}
             </span>
@@ -29,12 +29,12 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
           </div>
 
           <Link href={`/posts/${slug}`} className="block">
-            <h2 className="text-6xl md:text-8xl font-display font-bold mb-10 text-charcoal leading-[0.9] tracking-tight group-hover:text-burgundy transition-colors duration-500 text-balance">
+            <h2 className="text-4xl md:text-6xl lg:text-8xl font-display font-bold mb-8 md:mb-10 text-charcoal leading-[0.95] tracking-tight group-hover:text-burgundy transition-colors duration-500 text-balance">
               {frontmatter.title}
             </h2>
           </Link>
 
-          <p className="text-2xl md:text-3xl font-serif text-charcoal/80 leading-relaxed max-w-3xl mx-auto mb-12 text-balance antialiased">
+          <p className="text-lg md:text-2xl font-serif text-charcoal/80 leading-relaxed max-w-2xl mx-auto mb-10 md:mb-12 text-balance antialiased">
             {frontmatter.excerpt}
           </p>
 
@@ -53,12 +53,12 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   // Minimal List Layout (Side bar or compact)
   if (minimal) {
     return (
-      <article className="group py-6 border-t border-charcoal/10 first:border-t-0">
+      <article className="group py-5 border-t border-charcoal/5 first:border-t-0 pl-4 border-l-2 border-transparent hover:border-burgundy transition-all duration-300">
         <Link href={`/posts/${slug}`} className="block">
           <span className="block text-[10px] font-sans font-bold text-burgundy mb-2 uppercase tracking-[0.2em]">
             {frontmatter.category}
           </span>
-          <h3 className="text-xl font-display font-bold text-charcoal group-hover:text-burgundy transition-colors leading-tight mb-2">
+          <h3 className="text-lg md:text-xl font-display font-bold text-charcoal group-hover:text-burgundy transition-colors leading-tight mb-2">
             {frontmatter.title}
           </h3>
           <span className="block text-xs font-serif italic text-charcoal/40">
@@ -71,7 +71,7 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
 
   // Standard Grid Layout
   return (
-    <article className="group flex flex-col h-full">
+    <article className="group flex flex-col h-full transition-transform duration-500 hover:-translate-y-1">
       <div className="mb-6 flex items-center space-x-3 text-[10px] font-sans font-bold tracking-[0.25em] uppercase">
         <span className={categoryColors[frontmatter.category] || 'text-charcoal'}>
           {frontmatter.category}

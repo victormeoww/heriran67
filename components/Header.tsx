@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import PersianPattern from './PersianPattern'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -38,7 +39,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="group relative z-50 block">
-            <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tighter leading-none text-charcoal group-hover:opacity-80 transition-opacity">
+            <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tighter leading-none text-charcoal group-hover:opacity-80 transition-opacity">
               HER<span className="text-burgundy italic ml-1 font-serif">iran</span>
             </h1>
           </Link>
@@ -49,14 +50,11 @@ export default function Header() {
               <Link
                 key={category.name}
                 href={category.href}
-                className={`text-[11px] font-sans font-bold tracking-[0.25em] uppercase transition-all relative group py-2 ${
+                className={`text-[11px] font-sans font-bold tracking-[0.25em] uppercase transition-colors relative py-2 underline-slide ${
                   isActive(category.href) ? 'text-burgundy' : 'text-charcoal/60 hover:text-burgundy'
                 }`}
               >
                 {category.name}
-                <span className={`absolute -bottom-1 left-1/2 w-1 h-1 bg-burgundy rounded-full transform -translate-x-1/2 transition-all duration-300 ${
-                  isActive(category.href) ? 'opacity-100 scale-100' : 'opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'
-                }`} />
               </Link>
             ))}
           </nav>
@@ -78,7 +76,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-cream z-40 transition-transform duration-700 cubic-bezier(0.22, 1, 0.36, 1) md:hidden flex items-center justify-center ${
+        className={`fixed inset-0 bg-cream/98 backdrop-blur-xl z-40 transition-transform duration-700 cubic-bezier(0.22, 1, 0.36, 1) md:hidden flex items-center justify-center ${
           isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
@@ -98,10 +96,7 @@ export default function Header() {
         
         {/* Decorative Pattern in Menu */}
         <div className="absolute bottom-12 left-0 right-0 flex justify-center opacity-10 pointer-events-none">
-           <svg className="w-32 h-32 text-burgundy" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="0.5" />
-             <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="0.5" />
-           </svg>
+           <PersianPattern variant="star" className="w-32 h-32 text-burgundy" />
         </div>
       </div>
     </header>

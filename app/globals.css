@@ -93,7 +93,7 @@
 }
 
 .prose p {
-  @apply text-xl leading-[1.8] mb-8 font-serif text-charcoal/90; /* Slightly muted for reading comfort */
+  @apply text-lg md:text-xl leading-relaxed md:leading-[1.8] mb-6 md:mb-8 font-serif text-charcoal/90; /* Slightly muted for reading comfort */
 }
 
 .prose h2 {

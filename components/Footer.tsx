@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-charcoal text-cream mt-32 pt-24 pb-12 relative overflow-hidden">
       {/* Decorative Top Border */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-burgundy via-gold to-burgundy opacity-80"></div>
+      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-burgundy via-gold to-burgundy opacity-60"></div>
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 mb-20">
@@ -27,19 +27,19 @@ export default function Footer() {
           {/* Links Column */}
           <div className="md:col-span-3 md:col-start-7 space-y-8">
             <h3 className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-gold">Platform</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
+                <Link href="/about" className="block py-1 text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
                   Mission & About
                 </Link>
               </li>
               <li>
-                <Link href="/category/Essay" className="text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
+                <Link href="/category/Essay" className="block py-1 text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
                   Essays
                 </Link>
               </li>
               <li>
-                <Link href="/category/Breaking News" className="text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
+                <Link href="/category/Breaking News" className="block py-1 text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
                   Breaking News
                 </Link>
               </li>
@@ -49,14 +49,14 @@ export default function Footer() {
           {/* Connect Column */}
           <div className="md:col-span-3 space-y-8">
             <h3 className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-gold">Connect</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-2">
               <li>
-                <a href="mailto:heriran@protonmail.com" className="text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
+                <a href="mailto:heriran@protonmail.com" className="block py-1 text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
                   Secure Contact
                 </a>
               </li>
               <li>
-                <Link href="/rss.xml" className="text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
+                <Link href="/rss.xml" className="block py-1 text-sm font-sans tracking-widest text-cream/60 hover:text-white hover:pl-2 transition-all duration-300 uppercase">
                   RSS Feed
                 </Link>
               </li>

@@ -15,15 +15,15 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Hero / Featured Section */}
-      <section className="relative pt-12 md:pt-24 pb-12 px-6 md:px-12">
+      <section className="relative pt-16 md:pt-28 pb-16 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           
           {/* Header Statement */}
-          <div className="text-center mb-20 fade-in">
+          <div className="text-center mb-20 md:mb-28 fade-in">
              <div className="flex justify-center mb-6 opacity-40">
               <PersianPattern variant="star" className="w-12 h-12 text-burgundy" />
             </div>
-            <h1 className="text-xl md:text-2xl font-display italic text-charcoal/60 max-w-xl mx-auto leading-relaxed">
+            <h1 className="text-xl md:text-3xl font-display italic text-charcoal/60 max-w-2xl mx-auto leading-relaxed">
               &quot;Voices from the shadows, speaking truth to power.&quot;
             </h1>
           </div>
@@ -38,15 +38,24 @@ export default function HomePage() {
 
       {/* Main Content Grid */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 pb-32">
-        <div className="flex items-baseline justify-between mb-12 border-b border-charcoal/10 pb-4">
-          <h2 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal">
-            Latest Stories
-          </h2>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+          
+          {/* Main Column Header (Mobile/Tablet - visible above) */}
+          <div className="lg:col-span-8 lg:hidden mb-8 border-b border-charcoal/10 pb-4">
+             <h2 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal">
+              Latest Stories
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
           {/* Main Column */}
           <div className="lg:col-span-8 space-y-20">
+            {/* Desktop Header (Inside column) */}
+            <div className="hidden lg:block mb-12 border-b border-charcoal/10 pb-4">
+               <h2 className="text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal">
+                Latest Stories
+              </h2>
+            </div>
+
             {mainPosts.map((post, index) => (
               <div key={post.slug} className="fade-in" style={{ animationDelay: `${index * 100}ms` }}>
                 <PostCard post={post} />
@@ -57,7 +66,7 @@ export default function HomePage() {
           {/* Sidebar Column */}
           <div className="lg:col-span-4 space-y-12">
             <div className="sticky top-32">
-              <div className="bg-sand/50 p-8 rounded-sm border border-charcoal/5 mb-12">
+              <div className="bg-sand/30 p-6 md:p-8 rounded-sm border border-charcoal/5 mb-12">
                 <h3 className="font-display text-2xl font-bold text-charcoal mb-4">About HER iran</h3>
                 <p className="font-serif text-charcoal/70 mb-6 leading-relaxed">
                   An independent, anonymous platform documenting the struggle for freedom in Iran. 
