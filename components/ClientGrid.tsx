@@ -27,19 +27,22 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
       
       {/* Disclaimer for English Mode */}
       {language === 'en' && showDisclaimer && (
-        <div className="border-l-4 border-gold bg-sand/50 px-6 py-5 mb-10 fade-in">
+        <div className="bg-burgundy/10 border-2 border-burgundy/30 px-6 py-5 mb-10 fade-in rounded-sm">
           <div className="flex items-start justify-between gap-6">
-            <div className="space-y-1">
-              <p className="text-sm font-sans font-medium text-charcoal">
-                This site is run by one person.
-              </p>
-              <p className="text-xs text-charcoal/60 leading-relaxed">
-                All content is originally written in Persian. English translations are a work in progress—some may be AI-assisted. Thank you for your patience.
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-burgundy text-lg">⚠</span>
+                <p className="text-sm font-sans font-bold text-burgundy uppercase tracking-wide">
+                  Translation Notice
+                </p>
+              </div>
+              <p className="text-sm text-charcoal leading-relaxed">
+                <strong>Some English translations may be AI-generated.</strong> All content on this site is originally written in Persian by one person. You can view the original text by switching the language to Farsi using the button in the header.
               </p>
             </div>
             <button 
               onClick={() => setShowDisclaimer(false)}
-              className="text-charcoal/30 hover:text-charcoal/60 transition-colors text-lg leading-none mt-0.5"
+              className="text-burgundy/50 hover:text-burgundy transition-colors text-xl leading-none mt-0.5 font-bold"
               aria-label="Dismiss"
             >
               ×

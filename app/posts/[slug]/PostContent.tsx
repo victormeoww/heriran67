@@ -58,8 +58,23 @@ export default function PostContent({
 
   return (
     <article className={`min-h-screen bg-cream selection:bg-burgundy/10 ${currentLang === 'fa' ? 'font-persian' : ''}`}>
+      
+      {/* Translation Disclaimer for English articles */}
+      {currentLang === 'en' && (
+        <div className="bg-burgundy/10 border-b-2 border-burgundy/30">
+          <div className="max-w-4xl mx-auto px-6 md:px-12 py-4">
+            <div className="flex items-center gap-3 text-sm">
+              <span className="text-burgundy text-base">⚠</span>
+              <p className="text-charcoal">
+                <strong className="text-burgundy">Translation Notice:</strong> This article may be AI-translated. Originally written in Persian — <button onClick={() => setLanguage('fa')} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">switch to Farsi to read the original</button>.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Article Header */}
-      <header className="max-w-4xl mx-auto px-6 md:px-12 pt-24 md:pt-32 pb-12 md:pb-16 text-center">
+      <header className="max-w-4xl mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-12 md:pb-16 text-center">
         <div className="flex items-center justify-center gap-4 mb-8 text-xs font-sans tracking-[0.2em] uppercase text-charcoal/60">
           <Link href={`/category/${post.frontmatter.category}`} className="text-burgundy hover:underline">
             {post.frontmatter.category}
