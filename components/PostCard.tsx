@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Post, formatDate } from '@/lib/posts'
+import { Post } from '@/lib/posts'
 import { useLayout } from './LayoutContext'
 
 interface PostCardProps {

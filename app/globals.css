@@ -164,7 +164,9 @@ html[dir="rtl"] .prose li {
 }
 
 html[dir="rtl"] .prose pre {
-  @apply border-l-0 border-r-2 text-left dir-ltr;
+  @apply border-l-0 border-r-2;
+  direction: ltr;
+  text-align: left;
 }
 
 .prose pre code {

@@ -3,10 +3,9 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useLayout } from './LayoutContext'
-import PersianPattern from './PersianPattern'
 
 export default function Header() {
-  const { language, toggleLanguage, direction } = useLayout()
+  const { language, toggleLanguage } = useLayout()
   const [tehranTime, setTehranTime] = useState<string>('')
 
   useEffect(() => {
