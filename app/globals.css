@@ -107,7 +107,7 @@
 }
 
 .prose p {
-  @apply text-lg md:text-xl leading-relaxed md:leading-[1.8] mb-6 md:mb-8 font-serif text-charcoal/90; /* Slightly muted for reading comfort */
+  @apply text-lg md:text-xl leading-relaxed md:leading-[1.8] mb-4 md:mb-5 font-serif text-charcoal/90; /* Slightly muted for reading comfort */
 }
 
 html[dir="rtl"] .prose p {
@@ -115,11 +115,11 @@ html[dir="rtl"] .prose p {
 }
 
 .prose h2 {
-  @apply text-3xl md:text-4xl font-display font-bold mt-20 mb-8 tracking-tight text-charcoal leading-tight;
+  @apply text-3xl md:text-4xl font-display font-bold mt-14 mb-6 tracking-tight text-charcoal leading-tight;
 }
 
 .prose h3 {
-  @apply text-2xl md:text-3xl font-display font-semibold mt-16 mb-6 text-charcoal leading-tight;
+  @apply text-2xl md:text-3xl font-display font-semibold mt-12 mb-5 text-charcoal leading-tight;
 }
 
 .prose a {
@@ -127,7 +127,7 @@ html[dir="rtl"] .prose p {
 }
 
 .prose blockquote {
-  @apply border-l-2 border-gold pl-8 italic my-12 text-2xl text-charcoal font-display bg-transparent leading-relaxed;
+  @apply border-l-2 border-gold pl-8 italic my-8 text-2xl text-charcoal font-display bg-transparent leading-relaxed;
 }
 
 html[dir="rtl"] .prose blockquote {
@@ -135,7 +135,7 @@ html[dir="rtl"] .prose blockquote {
 }
 
 .prose ul, .prose ol {
-  @apply my-8 pl-6 space-y-3 marker:text-burgundy/70;
+  @apply my-6 pl-6 space-y-2 marker:text-burgundy/70;
 }
 
 html[dir="rtl"] .prose ul, 
@@ -160,7 +160,7 @@ html[dir="rtl"] .prose li {
 }
 
 .prose pre {
-  @apply bg-charcoal text-cream p-8 overflow-x-auto my-12 text-sm border-l-2 border-gold shadow-2xl;
+  @apply bg-charcoal text-cream p-6 overflow-x-auto my-8 text-sm border-l-2 border-gold shadow-2xl;
 }
 
 html[dir="rtl"] .prose pre {
@@ -174,11 +174,11 @@ html[dir="rtl"] .prose pre {
 }
 
 .prose img {
-  @apply w-full h-auto my-16 block shadow-sm;
+  @apply w-full h-auto my-10 block shadow-sm;
 }
 
 .prose hr {
-  @apply my-20 border-0 h-px bg-charcoal/10;
+  @apply my-12 border-0 h-px bg-charcoal/10;
 }
 
 /* Drop cap - Classical Style */
@@ -192,9 +192,69 @@ html[dir="rtl"] .prose > p:first-of-type::first-letter {
 
 /* Pull quotes utility */
 .prose .pullquote {
-  @apply text-3xl md:text-4xl font-display italic text-charcoal my-20 text-center leading-tight max-w-3xl mx-auto py-12 border-y border-charcoal/10;
+  @apply text-3xl md:text-4xl font-display italic text-charcoal my-12 text-center leading-tight max-w-3xl mx-auto py-8 border-y border-charcoal/10;
 }
 
 html[dir="rtl"] .prose .pullquote {
   @apply font-persian font-bold not-italic;
+}
+
+/* Card hover effects */
+.card-lift {
+  @apply transition-all duration-300;
+}
+
+.card-lift:hover {
+  @apply -translate-y-1 shadow-lg;
+}
+
+/* Accent line */
+.accent-line {
+  @apply relative;
+}
+
+.accent-line::before {
+  content: '';
+  @apply absolute left-0 top-0 w-1 h-full bg-burgundy;
+}
+
+html[dir="rtl"] .accent-line::before {
+  @apply left-auto right-0;
+}
+
+/* Gradient text */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-burgundy to-burgundy/70;
+}
+
+/* Section divider */
+.section-divider {
+  @apply relative py-8;
+}
+
+.section-divider::before {
+  content: '✦';
+  @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-burgundy/30 text-xl;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+
+/* Link underline animation */
+.link-underline {
+  @apply relative inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+}
+
+.link-underline:hover::after {
+  @apply w-full;
 }

@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { format } from 'date-fns'
+import { CATEGORY_MAP } from './categories'
 
 // Define both directories
 const postsDirectoryFa = path.join(process.cwd(), 'content/posts')
@@ -90,7 +91,9 @@ export function getPostBySlug(slug: string, locale: 'fa' | 'en' = 'fa'): Post | 
 
 export function getPostsByCategory(category: string, locale: 'fa' | 'en' = 'fa'): Post[] {
   const allPosts = getAllPosts(locale)
-  return allPosts.filter(post => post.frontmatter.category === category)
+  // Use category mapping to match all valid names for this category
+  const validNames = CATEGORY_MAP[category] || [category]
+  return allPosts.filter(post => validNames.includes(post.frontmatter.category))
 }
 
 export function getFeaturedPost(locale: 'fa' | 'en' = 'fa'): Post | null {

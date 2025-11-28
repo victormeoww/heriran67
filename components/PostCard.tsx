@@ -13,7 +13,6 @@ interface PostCardProps {
 
 // Helper to get current time in Tehran timezone
 function getTehranNow(): Date {
-  // Tehran is UTC+3:30
   const now = new Date()
   const utc = now.getTime() + (now.getTimezoneOffset() * 60000)
   return new Date(utc + (3.5 * 60 * 60 * 1000))
@@ -57,14 +56,11 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   const { language } = useLayout()
   const [relativeDate, setRelativeDate] = useState<string>(frontmatter.date)
   
-  // Update relative date on mount and when language changes (Tehran timezone, every second)
   useEffect(() => {
     setRelativeDate(getRelativeTime(frontmatter.date, language))
-    
-    // Update every second for real-time accuracy
     const timer = setInterval(() => {
       setRelativeDate(getRelativeTime(frontmatter.date, language))
-    }, 1000)
+    }, 60000) // Update every minute
     
     return () => clearInterval(timer)
   }, [frontmatter.date, language])
@@ -73,9 +69,8 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   const postUrl = language === 'en' ? `/posts/${slug}?lang=en` : `/posts/${slug}`
   
   const categoryColor = (cat: string) => {
-    // Simple map for Persian categories if needed, or use same logic
     if (cat === 'شخصی' || cat === 'Personal') return 'text-gold';
-    if (cat === 'اخبار' || cat === 'News') return 'text-teal';
+    if (cat === 'اخبار' || cat === 'Breaking News' || cat === 'News') return 'text-teal';
     return 'text-burgundy'; // Essays / Articles
   }
 
@@ -85,33 +80,33 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
       <article className="group relative w-full">
         <div className="flex flex-col items-start w-full">
           {/* Kicker */}
-          <div className="flex items-center gap-3 mb-4 text-xs font-bold tracking-wide text-charcoal/60">
-            <span className={`${categoryColor(frontmatter.category)}`}>
+          <div className="flex items-center gap-2 mb-3">
+            <span className={`text-xs font-bold tracking-wide uppercase ${categoryColor(frontmatter.category)}`}>
               {frontmatter.category}
             </span>
             <span className="w-1 h-1 rounded-full bg-charcoal/30"></span>
-            <span>{relativeDate}</span>
+            <span className="text-xs text-charcoal/50">{relativeDate}</span>
           </div>
 
           {/* Headline */}
           <Link href={postUrl} className="block w-full">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-charcoal leading-tight group-hover:text-burgundy transition-colors duration-300">
+            <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-charcoal leading-tight group-hover:text-burgundy transition-colors duration-300 ${language === 'fa' ? 'font-persian' : 'font-display'}`}>
               {frontmatter.title}
             </h2>
           </Link>
 
           {/* Deck / Excerpt */}
-          <p className="text-lg md:text-2xl text-charcoal/80 leading-relaxed mb-8 max-w-3xl">
+          <p className={`text-base md:text-lg text-charcoal/70 leading-relaxed mb-5 ${language === 'fa' ? 'font-persian' : 'font-serif'}`}>
             {frontmatter.excerpt}
           </p>
 
           {/* Call to Action */}
           <Link 
             href={postUrl}
-            className="inline-flex items-center gap-2 text-sm font-bold text-burgundy border-b border-burgundy pb-1 hover:opacity-80 transition-opacity"
+            className="inline-flex items-center gap-2 text-sm font-bold text-burgundy hover:opacity-70 transition-opacity group/link"
           >
             {language === 'fa' ? 'ادامه مطلب' : 'Read Story'}
-            <span className={`text-lg leading-none mb-0.5 ${language === 'fa' ? 'rotate-180' : ''}`}>→</span>
+            <span className={`text-base leading-none group-hover/link:translate-x-1 transition-transform ${language === 'fa' ? 'rotate-180 group-hover/link:-translate-x-1' : ''}`}>→</span>
           </Link>
         </div>
       </article>
@@ -121,17 +116,19 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   // MINIMAL / SIDEBAR LAYOUT
   if (minimal) {
     return (
-      <article className="group py-3 border-b border-charcoal/5 last:border-0">
-        <Link href={postUrl} className="block">
-          <div className="flex items-baseline justify-between mb-1">
-            <span className={`text-[10px] font-bold ${categoryColor(frontmatter.category)}`}>
-              {frontmatter.category}
-            </span>
+      <article className="group py-3 first:pt-0 last:pb-0">
+        <Link href={postUrl} className="flex items-start gap-3">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`text-[10px] font-bold uppercase ${categoryColor(frontmatter.category)}`}>
+                {frontmatter.category}
+              </span>
+            </div>
+            <h3 className={`text-sm font-bold text-charcoal group-hover:text-burgundy transition-colors leading-snug line-clamp-2 ${language === 'fa' ? 'font-persian' : ''}`}>
+              {frontmatter.title}
+            </h3>
           </div>
-          <h3 className="text-base font-bold text-charcoal group-hover:text-burgundy transition-colors leading-tight mb-1">
-            {frontmatter.title}
-          </h3>
-          <span className="block text-[10px] text-charcoal/40">
+          <span className="text-[10px] text-charcoal/40 flex-shrink-0 mt-0.5">
             {relativeDate}
           </span>
         </Link>
@@ -143,23 +140,32 @@ export default function PostCard({ post, featured = false, minimal = false }: Po
   return (
     <article className="group flex flex-col h-full">
       {/* Meta Top */}
-      <div className="mb-3 flex items-center gap-2 text-[10px] font-bold text-charcoal/50">
-        <span className={`${categoryColor(frontmatter.category)}`}>
+      <div className="mb-2 flex items-center gap-2 text-[10px] font-bold text-charcoal/50 uppercase tracking-wide">
+        <span className={categoryColor(frontmatter.category)}>
           {frontmatter.category}
         </span>
-        <span>/</span>
+        <span className="text-charcoal/20">•</span>
         <span>{relativeDate}</span>
       </div>
 
       {/* Title */}
-      <Link href={postUrl} className="block group-hover:opacity-95 transition-opacity">
-        <h3 className="text-2xl md:text-3xl font-bold mb-4 text-charcoal leading-tight group-hover:text-burgundy transition-colors duration-300">
+      <Link href={postUrl} className="block group-hover:opacity-95 transition-opacity flex-1">
+        <h3 className={`text-lg md:text-xl font-bold mb-2 text-charcoal leading-snug group-hover:text-burgundy transition-colors duration-300 ${language === 'fa' ? 'font-persian' : 'font-display'}`}>
           {frontmatter.title}
         </h3>
         
-        <p className="text-base md:text-lg text-charcoal/70 leading-relaxed mb-6 line-clamp-3">
+        <p className={`text-sm text-charcoal/60 leading-relaxed line-clamp-3 ${language === 'fa' ? 'font-persian' : ''}`}>
           {frontmatter.excerpt}
         </p>
+      </Link>
+
+      {/* Read more link */}
+      <Link 
+        href={postUrl}
+        className="inline-flex items-center gap-1 mt-3 text-xs font-bold text-burgundy/70 hover:text-burgundy transition-colors"
+      >
+        {language === 'fa' ? 'بیشتر' : 'Read'}
+        <span className={`text-sm leading-none ${language === 'fa' ? 'rotate-180' : ''}`}>→</span>
       </Link>
     </article>
   )

@@ -4,8 +4,6 @@ import { Post } from '@/lib/posts'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import PersianPattern from '@/components/PersianPattern'
-import { useLayout } from '@/components/LayoutContext'
-import { useEffect } from 'react'
 
 interface PostContentProps {
   postFa: Post | null
@@ -28,19 +26,8 @@ export default function PostContent({
 }: PostContentProps) {
   const searchParams = useSearchParams()
   const langParam = searchParams.get('lang')
-  const { language, setLanguage } = useLayout()
-  
-  // Sync language from URL param on mount
-  useEffect(() => {
-    if (langParam === 'en' && language !== 'en') {
-      setLanguage('en')
-    } else if (!langParam && language !== 'fa') {
-      setLanguage('fa')
-    }
-  }, [langParam, language, setLanguage])
-  
-  // Determine which post to show based on language
-  const currentLang = langParam === 'en' ? 'en' : language
+  // Determine language from URL param (URL is source of truth on article pages)
+  const currentLang = langParam === 'en' ? 'en' : 'fa'
   const post = currentLang === 'en' ? (postEn || postFa) : (postFa || postEn)
   const allPosts = currentLang === 'en' ? allPostsEn : allPostsFa
   const renderedContent = currentLang === 'en' ? renderedContentEn : renderedContentFa
@@ -66,7 +53,7 @@ export default function PostContent({
             <div className="flex items-center gap-3 text-sm">
               <span className="text-burgundy text-base">⚠</span>
               <p className="text-charcoal">
-                <strong className="text-burgundy">Translation Notice:</strong> This article may be AI-translated. Originally written in Persian — <button onClick={() => setLanguage('fa')} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">switch to Farsi to read the original</button>.
+                <strong className="text-burgundy">Translation Notice:</strong> This article may be AI-translated. Originally written in Persian — <Link href={`/posts/${slug}`} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">switch to Farsi to read the original</Link>.
               </p>
             </div>
           </div>
@@ -74,8 +61,8 @@ export default function PostContent({
       )}
 
       {/* Article Header */}
-      <header className="max-w-4xl mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-12 md:pb-16 text-center">
-        <div className="flex items-center justify-center gap-4 mb-8 text-xs font-sans tracking-[0.2em] uppercase text-charcoal/60">
+      <header className="max-w-4xl mx-auto px-6 md:px-12 pt-12 md:pt-16 pb-8 md:pb-10 text-center">
+        <div className="flex items-center justify-center gap-4 mb-6 text-xs font-sans tracking-[0.2em] uppercase text-charcoal/60">
           <Link href={`/category/${post.frontmatter.category}`} className="text-burgundy hover:underline">
             {post.frontmatter.category}
           </Link>
@@ -83,11 +70,11 @@ export default function PostContent({
           <span>{post.frontmatter.date}</span>
         </div>
 
-        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-display font-bold text-charcoal leading-[1.15] mb-12 text-balance ${currentLang === 'fa' ? 'font-persian' : ''}`}>
+        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-display font-bold text-charcoal leading-[1.15] mb-8 text-balance ${currentLang === 'fa' ? 'font-persian' : ''}`}>
           {post.frontmatter.title}
         </h1>
 
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8">
           <PersianPattern variant="divider" className="w-32 md:w-64 h-4 text-burgundy" opacity={0.4} />
         </div>
 
@@ -97,14 +84,14 @@ export default function PostContent({
       </header>
 
       {/* Article Content */}
-      <div className="max-w-[720px] mx-auto px-6 pb-24">
+      <div className="max-w-[720px] mx-auto px-6 pb-16">
         <div 
           className={`prose prose-lg md:prose-xl ${currentLang === 'fa' ? 'font-persian' : ''}`}
           dangerouslySetInnerHTML={{ __html: renderedContent }}
         />
         
         {/* End Mark */}
-        <div className="flex justify-center mt-16 mb-24">
+        <div className="flex justify-center mt-12 mb-16">
            <div className="w-2 h-2 bg-burgundy rounded-full mx-1"></div>
            <div className="w-2 h-2 bg-burgundy rounded-full mx-1"></div>
            <div className="w-2 h-2 bg-burgundy rounded-full mx-1"></div>
@@ -112,13 +99,13 @@ export default function PostContent({
       </div>
 
       {/* Navigation Footer */}
-      <nav className="bg-white border-t border-charcoal/5 py-24">
+      <nav className="bg-white border-t border-charcoal/5 py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <h3 className="text-center text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal/40 mb-16">
+          <h3 className="text-center text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal/40 mb-10">
             {currentLang === 'fa' ? 'نوشته‌های بیشتر' : 'More Stories'}
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
             {prevPost && (
               <Link 
                 href={buildPostUrl(prevPost.slug)}
@@ -148,7 +135,7 @@ export default function PostContent({
             )}
           </div>
           
-          <div className="text-center mt-24">
+          <div className="text-center mt-16">
              <Link 
               href="/"
               className="inline-flex items-center justify-center px-8 py-4 border border-charcoal/10 rounded-full text-xs font-sans font-bold tracking-[0.2em] uppercase text-charcoal hover:bg-charcoal hover:text-cream transition-all duration-300"
