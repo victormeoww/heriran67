@@ -59,9 +59,9 @@ export default function ClientGrid({ postsFa, postsEn }: { postsFa: Post[], post
           <div className="max-w-screen-2xl mx-auto px-4 md:px-8 py-4">
             <div className="flex items-start justify-between gap-6">
               <div className="flex items-center gap-3">
-                <span className="text-burgundy text-lg">⚠</span>
+                <span className="text-burgundy text-lg">🌐</span>
                 <p className="text-sm text-charcoal">
-                  <strong className="text-burgundy">Translation Notice:</strong> Some English translations may be AI-generated. 
+                  <strong className="text-burgundy">Note:</strong> All articles are written by one person in Persian. As manual translation takes time, some translations may be AI-assisted.
                   <button onClick={() => setShowDisclaimer(false)} className="ml-2 text-burgundy underline underline-offset-2 hover:no-underline">Dismiss</button>
                 </p>
               </div>
