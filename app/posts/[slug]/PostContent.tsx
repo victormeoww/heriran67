@@ -53,7 +53,7 @@ export default function PostContent({
             <div className="flex items-center gap-3 text-sm">
               <span className="text-burgundy text-base">🌐</span>
               <p className="text-charcoal">
-                <strong className="text-burgundy">Note:</strong> Originally written in Persian. This translation may use AI — <Link href={`/posts/${slug}`} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">read the original</Link>.
+                <strong className="text-burgundy">Note:</strong> All articles are written by one person in Persian. As manual translation takes time, some English versions may use AI — <Link href={`/posts/${slug}`} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">read the original</Link>.
               </p>
             </div>
           </div>
