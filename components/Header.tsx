@@ -36,22 +36,22 @@ export default function Header() {
   }
 
   useEffect(() => {
-    // Update time every minute
+    // Update time every second for live feel
     const updateTime = () => {
       const now = new Date()
       const options: Intl.DateTimeFormatOptions = {
         timeZone: 'Asia/Tehran',
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
         hour12: false,
-        // Show Persian numerals if language is Persian
         numberingSystem: effectiveLanguage === 'fa' ? 'persian' : 'latn' 
       }
       setTehranTime(now.toLocaleTimeString(effectiveLanguage === 'fa' ? 'fa-IR' : 'en-US', options))
     }
 
     updateTime()
-    const interval = setInterval(updateTime, 60000)
+    const interval = setInterval(updateTime, 1000)
     return () => clearInterval(interval)
   }, [effectiveLanguage])
 
