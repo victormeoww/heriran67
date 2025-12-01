@@ -51,9 +51,9 @@ export default function PostContent({
         <div className="bg-burgundy/10 border-b-2 border-burgundy/30">
           <div className="max-w-4xl mx-auto px-6 md:px-12 py-4">
             <div className="flex items-center gap-3 text-sm">
-              <span className="text-burgundy text-base">⚠</span>
+              <span className="text-burgundy text-base">🌐</span>
               <p className="text-charcoal">
-                <strong className="text-burgundy">Translation Notice:</strong> This article may be AI-translated. Originally written in Persian — <Link href={`/posts/${slug}`} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">switch to Farsi to read the original</Link>.
+                <strong className="text-burgundy">Note:</strong> This is a translation. The original was written in Persian — <Link href={`/posts/${slug}`} className="underline text-burgundy hover:text-burgundy/70 transition-colors font-medium">read the original</Link>.
               </p>
             </div>
           </div>

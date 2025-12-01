@@ -7,3 +7,5 @@ export const CATEGORY_MAP: Record<string, string[]> = {
   'Personal': ['Personal', 'شخصی'],
 }
 
+
+

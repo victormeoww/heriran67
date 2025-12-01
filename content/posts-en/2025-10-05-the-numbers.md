@@ -50,3 +50,5 @@ I write these numbers because someday there will be a reckoning. Someday there w
 And when that day comes, I want the numbers to be ready.
 
 
+
+

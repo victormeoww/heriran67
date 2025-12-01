@@ -94,3 +94,5 @@ export default function CategoryContent({ category, postsEn, postsFa }: Category
   )
 }
 
+
+
